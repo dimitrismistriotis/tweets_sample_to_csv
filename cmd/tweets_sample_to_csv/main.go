@@ -10,4 +10,5 @@ func main() {
 	fmt.Println("Entry point")
 	// tweets_sample_to_csv.
 	tweetssampletocsv.RetrieveAndStore()
+	fmt.Println("After entry point")
 }
