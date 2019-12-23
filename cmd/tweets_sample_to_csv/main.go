@@ -21,4 +21,6 @@ func main() {
 	// tweets_sample_to_csv.
 	tweetssampletocsv.RetrieveAndStore()
 	fmt.Println("After entry point")
+
+	fmt.Println(tweetssampletocsv.GetDefaultFilename())
 }
