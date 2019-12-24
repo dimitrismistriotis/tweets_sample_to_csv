@@ -10,8 +10,7 @@ import (
 
 func main() {
 	fmt.Println("Entry point")
-	targetFilename := flag.String("filename", "",
-		"File to store samples, will exit if already exists or cannot write to location")
+	targetFilename := flag.String("filename", "", "File to store samples")
 	flag.Parse()
 
 	fmt.Printf("targetFilename: %s\n", *targetFilename)
