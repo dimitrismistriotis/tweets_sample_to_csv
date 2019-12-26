@@ -1,3 +1,6 @@
+#### joe made this: http://goel.io/joe
+
+#### go ####
 # Binaries for programs and plugins
 *.exe
 *.exe~
@@ -11,5 +14,5 @@
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 
-# Dependency directories (remove the comment below to include it)
-# vendor/
+# Congifuration:
+.env
