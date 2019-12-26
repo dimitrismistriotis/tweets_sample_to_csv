@@ -2,8 +2,7 @@ package tweetssampletocsv
 
 import "fmt"
 
-// RetrieveAndStore
-// functionality of the Package
+// RetrieveAndStore exposing main functionality of the package
 //
 func RetrieveAndStore() {
 	fmt.Println("Into Retrieve and Store")
