@@ -1,6 +1,7 @@
 package tweetssampletocsv
 
 import (
+	"encoding/csv"
 	"fmt"
 	"log"
 	"net/url"
@@ -9,6 +10,22 @@ import (
 	"github.com/ChimeraCoder/anaconda"
 	"github.com/joho/godotenv"
 )
+
+// RetrieveAndStoreToCSV wraps retrieve and store
+func RetrieveAndStoreToCSV(targetFilename *string) {
+	fmt.Println("Target filename: ", *targetFilename)
+	csvfile, err := os.Create(*targetFilename)
+	if err != nil {
+		log.Print("Could not open CSV file")
+		log.Fatal(err)
+	}
+
+	defer csvfile.Close()
+
+	csvwriter := csv.NewWriter(csvfile)
+	defer csvwriter.Flush()
+	csvwriter.Write([]string{"FIRST", "SECOND", "THIRD"})
+}
 
 // RetrieveAndStore exposing main functionality of the package
 //
