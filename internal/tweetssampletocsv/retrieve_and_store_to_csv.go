@@ -26,6 +26,7 @@ func RetrieveAndStoreToCSV(targetFilename *string) {
 	defer csvwriter.Flush()
 
 	csvwriter.Write(getCsvHeaders())
+	RetrieveAndStore(csvwriter)
 }
 
 func getCsvHeaders() []string {
@@ -37,7 +38,7 @@ func getCsvHeaders() []string {
 
 // RetrieveAndStore exposing main functionality of the package
 //
-func RetrieveAndStore() {
+func RetrieveAndStore(writer *csv.Writer) {
 	fmt.Println("Into Retrieve and Store")
 	log.SetOutput(os.Stdout)
 
@@ -90,14 +91,18 @@ func RetrieveAndStore() {
 			fmt.Printf("Lang: %s\n", v.Lang)
 			// fmt.Printf("Coordinates: %v\n", v.Coordinates)
 			longitude, err := v.Longitude()
+			longitudeStr := ""
 			if err != nil {
 				fmt.Printf("Longitude: %f\n", longitude)
+				longitudeStr = fmt.Sprintf("%f", longitude)
 			} else {
 				fmt.Printf("Longitude: -\n")
 			}
 			latitude, err := v.Latitude()
+			latitudeStr := ""
 			if err != nil {
 				fmt.Printf("Latitude: %f\n", latitude)
+				latitudeStr = fmt.Sprintf("%f", latitude)
 			} else {
 				fmt.Printf("Latitude: -\n")
 			}
@@ -127,6 +132,21 @@ func RetrieveAndStore() {
 			// fmt.Printf("WithheldCopyright: %v\n", v.WithheldCopyright)
 			// fmt.Printf("WithheldInCountries: %s\n", v.WithheldInCountries)
 			// fmt.Printf("WithheldScope: %s\n", v.WithheldScope)
+			writer.Write([]string{v.IdStr,
+				fmt.Sprintf("%v", v.User.ScreenName),
+				fmt.Sprintf("%v", v.FullText),
+				fmt.Sprintf("%v", v.ExtendedEntities),
+				fmt.Sprintf("%v", v.ExtendedEntities.Urls),
+				v.CreatedAt,
+				v.Lang,
+				longitudeStr,
+				latitudeStr,
+				v.Source,
+				fmt.Sprintf("%v", v.Favorited),
+				fmt.Sprintf("%v", v.FavoriteCount),
+				fmt.Sprintf("%v", v.Retweeted),
+				fmt.Sprintf("%v", v.RetweetCount),
+			})
 		case anaconda.EventTweet:
 			switch v.Event.Event {
 			case "favorite":
