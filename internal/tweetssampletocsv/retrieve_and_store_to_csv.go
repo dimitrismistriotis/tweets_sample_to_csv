@@ -24,7 +24,15 @@ func RetrieveAndStoreToCSV(targetFilename *string) {
 
 	csvwriter := csv.NewWriter(csvfile)
 	defer csvwriter.Flush()
-	csvwriter.Write([]string{"FIRST", "SECOND", "THIRD"})
+
+	csvwriter.Write(getCsvHeaders())
+}
+
+func getCsvHeaders() []string {
+	return []string{"IdStr", "UserScreenName", "ExtendedTweetText",
+		"ExtendedTweetEntitiesHashtags", "ExtendedTweetEntitiesUrls", "CreatedAt",
+		"Lang", "Longitude", "Latitude", "Source", "Favorited", "FavoriteCount",
+		"Retweeted", "RetweetCount"}
 }
 
 // RetrieveAndStore exposing main functionality of the package
