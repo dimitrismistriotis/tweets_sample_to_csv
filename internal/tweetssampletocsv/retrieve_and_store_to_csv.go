@@ -12,7 +12,7 @@ import (
 )
 
 // RetrieveAndStoreToCSV wraps retrieve and store
-func RetrieveAndStoreToCSV(targetFilename *string) {
+func RetrieveAndStoreToCSV(targetFilename *string, maxItemsToDownload int64) {
 	fmt.Println("Target filename: ", *targetFilename)
 	csvfile, err := os.Create(*targetFilename)
 	if err != nil {
@@ -26,7 +26,7 @@ func RetrieveAndStoreToCSV(targetFilename *string) {
 	defer csvwriter.Flush()
 
 	csvwriter.Write(getCsvHeaders())
-	RetrieveAndStore(csvwriter)
+	RetrieveAndStore(csvwriter, maxItemsToDownload)
 }
 
 func getCsvHeaders() []string {
@@ -38,8 +38,8 @@ func getCsvHeaders() []string {
 
 // RetrieveAndStore exposing main functionality of the package
 //
-func RetrieveAndStore(writer *csv.Writer) {
-	fmt.Println("Into Retrieve and Store")
+func RetrieveAndStore(writer *csv.Writer, itemsToDownload int64) {
+	fmt.Printf("Into Retrieve and Store, items to download: %d", itemsToDownload)
 	log.SetOutput(os.Stdout)
 
 	log.Println("start")

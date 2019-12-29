@@ -22,6 +22,6 @@ func main() {
 	fmt.Printf("maxItemsToDownload (not used yet): %d\n", *maxItemsToDownload)
 
 	// tweets_sample_to_csv.
-	tweetssampletocsv.RetrieveAndStoreToCSV(targetFilename)
+	tweetssampletocsv.RetrieveAndStoreToCSV(targetFilename, *maxItemsToDownload)
 	fmt.Println("After entry point")
 }
