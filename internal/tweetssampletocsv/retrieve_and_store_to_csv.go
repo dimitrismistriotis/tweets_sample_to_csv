@@ -85,13 +85,18 @@ func RetrieveAndStore(writer *csv.Writer, itemsToDownload int64) {
 
 			screenName := v.User.ScreenName
 			hashTags := ""
-			for _, h := range v.Entities.Hashtags {
-				hashTags += h.Text
+			if len(v.Entities.Hashtags) > 0 {
+				for _, h := range v.Entities.Hashtags {
+					hashTags += h.Text
+				}
 			}
 			urls := ""
-			for _, u := range v.Entities.Urls {
-				urls += u.Display_url + " "
+			if len(v.Entities.Urls) > 0 {
+				for _, u := range v.Entities.Urls {
+					urls += u.Display_url + " "
+				}
 			}
+
 			longitude, err := v.Longitude()
 			longitudeStr := ""
 			if err != nil {
