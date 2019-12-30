@@ -77,6 +77,7 @@ func RetrieveAndStore(writer *csv.Writer, itemsToDownload int64) {
 	stream := api.PublicStreamSample(v)
 	defer stream.Stop()
 
+	var itemsDownloaded int64
 	for t := range stream.C {
 		switch v := t.(type) {
 		case anaconda.Tweet:
@@ -147,6 +148,13 @@ func RetrieveAndStore(writer *csv.Writer, itemsToDownload int64) {
 				fmt.Sprintf("%v", v.Retweeted),
 				fmt.Sprintf("%v", v.RetweetCount),
 			})
+
+			itemsDownloaded++
+			log.Printf("Items Downloaded: %d", itemsDownloaded)
+			if (itemsToDownload != -1) && (itemsDownloaded == itemsToDownload) {
+				return
+			}
+
 		case anaconda.EventTweet:
 			switch v.Event.Event {
 			case "favorite":
@@ -159,7 +167,5 @@ func RetrieveAndStore(writer *csv.Writer, itemsToDownload int64) {
 				fmt.Printf("UnFavorited by %-15s: %s\n", sn, tw)
 			}
 		}
-
-		break // Only one
 	}
 }
