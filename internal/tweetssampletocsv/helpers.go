@@ -22,10 +22,16 @@ func printRetrievedTweet(v *anaconda.Tweet) {
 
 	hashTags := ""
 	for _, h := range v.Entities.Hashtags {
-		hashTags += h.Text
+		hashTags += h.Text + " "
 	}
-	fmt.Printf("ExtendedTweetEntitiesHashtags: %v\n", hashTags)
-	fmt.Printf("ExtendedTweetEntitiesUrls: %v\n", v.ExtendedEntities.Urls)
+
+	urls := ""
+	for _, u := range v.Entities.Urls {
+		urls += u.Display_url + " "
+	}
+
+	fmt.Printf("Hashtags: %v\n", hashTags)
+	fmt.Printf("Urls: %v\n", urls)
 	fmt.Printf("CreatedAt: %s\n", v.CreatedAt)
 	fmt.Printf("Lang: %s\n", v.Lang)
 	// fmt.Printf("Coordinates: %v\n", v.Coordinates)

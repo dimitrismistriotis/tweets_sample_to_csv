@@ -31,7 +31,7 @@ func RetrieveAndStoreToCSV(targetFilename *string, maxItemsToDownload int64) {
 
 func getCsvHeaders() []string {
 	return []string{"IdStr", "UserScreenName", "ExtendedTweetText",
-		"Hashtags", "ExtendedTweetEntitiesUrls", "CreatedAt",
+		"Hashtags", "Urls", "CreatedAt",
 		"Lang", "Longitude", "Latitude", "Source", "Favorited", "FavoriteCount",
 		"Retweeted", "RetweetCount", "LinkToTweet"}
 }
@@ -88,6 +88,10 @@ func RetrieveAndStore(writer *csv.Writer, itemsToDownload int64) {
 			for _, h := range v.Entities.Hashtags {
 				hashTags += h.Text
 			}
+			urls := ""
+			for _, u := range v.Entities.Urls {
+				urls += u.Display_url + " "
+			}
 			longitude, err := v.Longitude()
 			longitudeStr := ""
 			if err != nil {
@@ -105,7 +109,7 @@ func RetrieveAndStore(writer *csv.Writer, itemsToDownload int64) {
 				fmt.Sprintf("%v", screenName),
 				fmt.Sprintf("%v", v.FullText),
 				fmt.Sprintf("%v", hashTags),
-				fmt.Sprintf("%v", v.ExtendedEntities.Urls),
+				fmt.Sprintf("%v", urls),
 				v.CreatedAt,
 				v.Lang,
 				longitudeStr,
