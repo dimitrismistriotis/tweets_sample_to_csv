@@ -5,7 +5,7 @@ Streams from Twitter's sample API to CSV file. Wanted to create a command line a
 ## Building
 
 ```
- go build -v "github.com/dimitrismistriotis/tweets_sample_to_csv/cmd/tweets_sample_to_csv/"
+go build -v "github.com/dimitrismistriotis/tweets_sample_to_csv/cmd/tweets_sample_to_csv/"
 ```
 
 ##  Code Layout
