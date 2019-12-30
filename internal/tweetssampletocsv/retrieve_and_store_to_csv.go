@@ -33,7 +33,7 @@ func getCsvHeaders() []string {
 	return []string{"IdStr", "UserScreenName", "ExtendedTweetText",
 		"ExtendedTweetEntitiesHashtags", "ExtendedTweetEntitiesUrls", "CreatedAt",
 		"Lang", "Longitude", "Latitude", "Source", "Favorited", "FavoriteCount",
-		"Retweeted", "RetweetCount"}
+		"Retweeted", "RetweetCount", "LinkToTweet"}
 }
 
 // RetrieveAndStore exposing main functionality of the package
@@ -83,6 +83,7 @@ func RetrieveAndStore(writer *csv.Writer, itemsToDownload int64) {
 		case anaconda.Tweet:
 			printRetrievedTweet(&v)
 
+			screenName := v.User.ScreenName
 			longitude, err := v.Longitude()
 			longitudeStr := ""
 			if err != nil {
@@ -94,8 +95,10 @@ func RetrieveAndStore(writer *csv.Writer, itemsToDownload int64) {
 				latitudeStr = fmt.Sprintf("%f", latitude)
 			}
 
+			linkToTweet := fmt.Sprintf("https://twitter.com/%s/status/%s", screenName, v.IdStr)
+
 			writer.Write([]string{v.IdStr,
-				fmt.Sprintf("%v", v.User.ScreenName),
+				fmt.Sprintf("%v", screenName),
 				fmt.Sprintf("%v", v.FullText),
 				fmt.Sprintf("%v", v.ExtendedEntities),
 				fmt.Sprintf("%v", v.ExtendedEntities.Urls),
@@ -108,6 +111,7 @@ func RetrieveAndStore(writer *csv.Writer, itemsToDownload int64) {
 				fmt.Sprintf("%v", v.FavoriteCount),
 				fmt.Sprintf("%v", v.Retweeted),
 				fmt.Sprintf("%v", v.RetweetCount),
+				linkToTweet,
 			})
 
 			itemsDownloaded++
