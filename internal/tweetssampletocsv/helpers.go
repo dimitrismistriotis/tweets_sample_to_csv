@@ -19,7 +19,12 @@ func printRetrievedTweet(v *anaconda.Tweet) {
 	fmt.Printf("UserScreenName: %v\n", v.User.ScreenName)
 	// fmt.Printf("ExtendedTweet: %v\n", v.ExtendedTweet)
 	fmt.Printf("ExtendedTweetText: %v\n", v.FullText)
-	fmt.Printf("ExtendedTweetEntitiesHashtags: %v\n", v.ExtendedEntities)
+
+	hashTags := ""
+	for _, h := range v.Entities.Hashtags {
+		hashTags += h.Text
+	}
+	fmt.Printf("ExtendedTweetEntitiesHashtags: %v\n", hashTags)
 	fmt.Printf("ExtendedTweetEntitiesUrls: %v\n", v.ExtendedEntities.Urls)
 	fmt.Printf("CreatedAt: %s\n", v.CreatedAt)
 	fmt.Printf("Lang: %s\n", v.Lang)
