@@ -2,15 +2,60 @@
 
 Streams from Twitter's sample API to CSV file. Wanted to create a command line application for ease of use and learning purposes.
 
+All fields are populated from Twitter apart from "LinkToTweet" which is deduced. Names try to match Twitter's API:
+
+* IdStr
+* UserScreenName
+* ExtendedTweetText
+* Hashtags
+* Urls
+* CreatedAt
+* Lang
+* Longitude
+* Latitude
+* Source
+* Favorited
+* FavoriteCount
+* Retweeted
+* RetweetCount
+* LinkToTweet"
+
 ## Building
 
 ```
 go build -v "github.com/dimitrismistriotis/tweets_sample_to_csv/cmd/tweets_sample_to_csv/"
 ```
 
+## Running
+
+Try ```tweets_sample_to_csv -help```. In detail:
+
+* **access_key** (string): Twitter's API access key, if not provided will try to read from environment or .env file
+* **access_secret** (string): Twitter's API access secret, if not provided will try to read from environment or .env file
+* **consumer_key** (string): Twitter's API consumer key, if not provided will try to read from environment or .env file
+* **consumer_secret** (string): Twitter's API consumer secret, if not provided will try to read from environment or .env file
+* **filename** (string): File to store samples (default "tweet_samples-2019-12-31-13-53-46.csv")
+* **items_to_download** (int): Max sample size, -1 for infinite (default -1)
+
+All are optional. If API access parameters are not provided from running flags, they should be in an environment variable. See ```sample.env``` for details.
+
+## Limitations
+
+As currently is, does not store locations of accompanying media of a Tweet.
+
 ##  Code Layout
 
 Followed instructions on [Standard Go Project Layout](https://github.com/golang-standards/project-layout).
+
+## Follow Ups
+
+* Use official Twitter's API (Used one used because liked its logging)
+* Start writing some tests even for trivial things.
+* Check with another coder and rearrange code layout.
+* Maybe links to Tweet's media.
+* Coordinates observed are zeroed possible bug.
+* Any other bugs or issues from running in the wild.
+* Maybe additional fields if any one requests them.
 
 ## References
 
