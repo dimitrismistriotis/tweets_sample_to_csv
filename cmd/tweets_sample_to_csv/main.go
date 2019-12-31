@@ -16,6 +16,11 @@ func main() {
 	defaultFilename := tweetssampletocsv.GetDefaultFilename()
 	targetFilename := flag.String("filename", defaultFilename, "File to store samples")
 	maxItemsToDownload := flag.Int64("items_to_download", -1, "Max sample size, -1 (default) for infinite")
+
+	consumerKey := flag.String("consumer_key", "", "Twitter's API consumer key, if not provided will try to read from environment or .env file")
+	consumerSecret := flag.String("consumer_secret", "", "Twitter's API consumer secret, if not provided will try to read from environment or .env file")
+	accessKey := flag.String("access_key", "", "Twitter's API access key, if not provided will try to read from environment or .env file")
+	accessSecret := flag.String("access_secret", "", "Twitter's API access secret, if not provided will try to read from environment or .env file")
 	flag.Parse()
 
 	fmt.Println("Read API keys from environment")
@@ -26,10 +31,29 @@ func main() {
 	}
 
 	apiConfig := tweetssampletocsv.ApiConfig{}
-	apiConfig.ConsumerKey = os.Getenv("CONSUMER_KEY")
-	apiConfig.ConsumerSecret = os.Getenv("CONSUMER_SECRET")
-	apiConfig.AccessKey = os.Getenv("ACCESS_KEY")
-	apiConfig.AccessSecret = os.Getenv("ACCESS_SECRET")
+	if *consumerKey != "" {
+		apiConfig.ConsumerKey = *consumerKey
+	} else {
+		apiConfig.ConsumerKey = os.Getenv("CONSUMER_KEY")
+	}
+
+	if *consumerSecret != "" {
+		apiConfig.ConsumerSecret = *consumerSecret
+	} else {
+		apiConfig.ConsumerSecret = os.Getenv("CONSUMER_SECRET")
+	}
+
+	if *accessKey != "" {
+		apiConfig.AccessKey = *accessKey
+	} else {
+		apiConfig.AccessKey = os.Getenv("ACCESS_KEY")
+	}
+
+	if *accessSecret != "" {
+		apiConfig.AccessSecret = *accessSecret
+	} else {
+		apiConfig.AccessSecret = os.Getenv("ACCESS_SECRET")
+	}
 
 	if apiConfig.ConsumerKey == "" || apiConfig.ConsumerSecret == "" ||
 		apiConfig.AccessKey == "" || apiConfig.AccessSecret == "" {
