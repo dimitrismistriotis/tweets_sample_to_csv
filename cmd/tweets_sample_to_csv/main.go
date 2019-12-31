@@ -15,7 +15,7 @@ func main() {
 	log.Println("Entry point")
 	defaultFilename := tweetssampletocsv.GetDefaultFilename()
 	targetFilename := flag.String("filename", defaultFilename, "File to store samples")
-	maxItemsToDownload := flag.Int64("items_to_download", -1, "Max sample size, -1 (default) for infinite")
+	maxItemsToDownload := flag.Int64("items_to_download", -1, "Max sample size, -1 for infinite")
 
 	consumerKey := flag.String("consumer_key", "", "Twitter's API consumer key, if not provided will try to read from environment or .env file")
 	consumerSecret := flag.String("consumer_secret", "", "Twitter's API consumer secret, if not provided will try to read from environment or .env file")
