@@ -77,8 +77,9 @@ func printRetrievedTweet(v *anaconda.Tweet) {
 	// fmt.Printf("WithheldScope: %s\n", v.WithheldScope)
 }
 
-func GetConfigurationFromParameters(consumerKey *string, consumerSecret *string, accessKey *string, accessSecret *string) *ApiConfig {
-	apiConfig := ApiConfig{}
+// GetConfigurationFromParameters assembles configuration parameters
+func GetConfigurationFromParameters(consumerKey *string, consumerSecret *string, accessKey *string, accessSecret *string) *APIConfig {
+	apiConfig := APIConfig{}
 
 	if *consumerKey != "" {
 		apiConfig.ConsumerKey = *consumerKey

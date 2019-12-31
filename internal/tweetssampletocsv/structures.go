@@ -1,7 +1,7 @@
 package tweetssampletocsv
 
-// ApiConfig: Stores configuration to access Twitter's API
-type ApiConfig struct {
+// APIConfig stores configuration to access Twitter's API
+type APIConfig struct {
 	ConsumerKey    string
 	ConsumerSecret string
 	AccessKey      string

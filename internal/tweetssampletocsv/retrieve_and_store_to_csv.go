@@ -11,7 +11,7 @@ import (
 )
 
 // RetrieveAndStoreToCSV wraps retrieve and store
-func RetrieveAndStoreToCSV(apiConfig *ApiConfig, targetFilename *string, maxItemsToDownload int64) {
+func RetrieveAndStoreToCSV(apiConfig *APIConfig, targetFilename *string, maxItemsToDownload int64) {
 	fmt.Println("Target filename: ", *targetFilename)
 	csvfile, err := os.Create(*targetFilename)
 	if err != nil {
@@ -37,7 +37,7 @@ func getCsvHeaders() []string {
 
 // RetrieveAndStore exposing main functionality of the package
 //
-func RetrieveAndStore(apiConfig *ApiConfig, writer *csv.Writer, itemsToDownload int64) {
+func RetrieveAndStore(apiConfig *APIConfig, writer *csv.Writer, itemsToDownload int64) {
 	fmt.Printf("Into Retrieve and Store, items to download: %d", itemsToDownload)
 
 	log.Println("start")
