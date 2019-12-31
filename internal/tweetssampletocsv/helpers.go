@@ -2,6 +2,8 @@ package tweetssampletocsv
 
 import (
 	"fmt"
+	"log"
+	"os"
 	"time"
 
 	"github.com/ChimeraCoder/anaconda"
@@ -73,4 +75,43 @@ func printRetrievedTweet(v *anaconda.Tweet) {
 	// fmt.Printf("WithheldCopyright: %v\n", v.WithheldCopyright)
 	// fmt.Printf("WithheldInCountries: %s\n", v.WithheldInCountries)
 	// fmt.Printf("WithheldScope: %s\n", v.WithheldScope)
+}
+
+func GetConfigurationFromParameters(consumerKey *string, consumerSecret *string, accessKey *string, accessSecret *string) *ApiConfig {
+	apiConfig := ApiConfig{}
+
+	if *consumerKey != "" {
+		apiConfig.ConsumerKey = *consumerKey
+	} else {
+		apiConfig.ConsumerKey = os.Getenv("CONSUMER_KEY")
+	}
+	// fmt.Println(apiConfig.ConsumerKey)
+
+	if *consumerSecret != "" {
+		apiConfig.ConsumerSecret = *consumerSecret
+	} else {
+		apiConfig.ConsumerSecret = os.Getenv("CONSUMER_SECRET")
+	}
+	// fmt.Println(apiConfig.ConsumerSecret)
+
+	if *accessKey != "" {
+		apiConfig.AccessKey = *accessKey
+	} else {
+		apiConfig.AccessKey = os.Getenv("ACCESS_KEY")
+	}
+	// fmt.Println(apiConfig.AccessKey)
+
+	if *accessSecret != "" {
+		apiConfig.AccessSecret = *accessSecret
+	} else {
+		apiConfig.AccessSecret = os.Getenv("ACCESS_SECRET")
+	}
+	// fmt.Println(apiConfig.AccessSecret)
+
+	if apiConfig.ConsumerKey == "" || apiConfig.ConsumerSecret == "" ||
+		apiConfig.AccessKey == "" || apiConfig.AccessSecret == "" {
+		log.Fatal("Consumer key/secret and Access token/secret required")
+	}
+
+	return &apiConfig
 }
