@@ -8,11 +8,10 @@ import (
 	"os"
 
 	"github.com/ChimeraCoder/anaconda"
-	"github.com/joho/godotenv"
 )
 
 // RetrieveAndStoreToCSV wraps retrieve and store
-func RetrieveAndStoreToCSV(targetFilename *string, maxItemsToDownload int64) {
+func RetrieveAndStoreToCSV(apiConfig *APIConfig, targetFilename *string, maxItemsToDownload int64) {
 	fmt.Println("Target filename: ", *targetFilename)
 	csvfile, err := os.Create(*targetFilename)
 	if err != nil {
@@ -26,7 +25,7 @@ func RetrieveAndStoreToCSV(targetFilename *string, maxItemsToDownload int64) {
 	defer csvwriter.Flush()
 
 	csvwriter.Write(getCsvHeaders())
-	RetrieveAndStore(csvwriter, maxItemsToDownload)
+	RetrieveAndStore(apiConfig, csvwriter, maxItemsToDownload)
 }
 
 func getCsvHeaders() []string {
@@ -38,29 +37,13 @@ func getCsvHeaders() []string {
 
 // RetrieveAndStore exposing main functionality of the package
 //
-func RetrieveAndStore(writer *csv.Writer, itemsToDownload int64) {
+func RetrieveAndStore(apiConfig *APIConfig, writer *csv.Writer, itemsToDownload int64) {
 	fmt.Printf("Into Retrieve and Store, items to download: %d", itemsToDownload)
-	log.SetOutput(os.Stdout)
 
 	log.Println("start")
 
-	fmt.Println("Preparing for Twitter retrieval, start with API keys from environment")
-	err := godotenv.Load()
-	if err != nil {
-		log.Print("Error loading .env file")
-		log.Fatal(err)
-	}
-	consumerKey := os.Getenv("CONSUMER_KEY")
-	consumerSecret := os.Getenv("CONSUMER_SECRET")
-	accessKey := os.Getenv("ACCESS_KEY")
-	accessSecret := os.Getenv("ACCESS_SECRET")
-
-	if consumerKey == "" || consumerSecret == "" || accessKey == "" || accessSecret == "" {
-		log.Fatal("Consumer key/secret and Access token/secret required")
-	}
-
 	// api := anaconda.NewTwitterApiWithCredentials(accessToken, accessSecret, consumerKey, consumerSecret)
-	api := anaconda.NewTwitterApiWithCredentials(accessKey, accessSecret, consumerKey, consumerSecret)
+	api := anaconda.NewTwitterApiWithCredentials(apiConfig.AccessKey, apiConfig.AccessSecret, apiConfig.ConsumerKey, apiConfig.ConsumerSecret)
 	api.SetLogger(anaconda.BasicLogger)
 	fmt.Println(*api.Credentials)
 
