@@ -28,7 +28,7 @@ go build -v "github.com/dimitrismistriotis/tweets_sample_to_csv/cmd/tweets_sampl
 
 ### Dependency Management
 
-Used [go dep](https://golang.github.io/dep/).
+Used [go modules](https://github.com/golang/go/wiki/Modules).
 
 ## Running
 
