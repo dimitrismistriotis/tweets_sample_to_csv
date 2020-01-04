@@ -18,7 +18,7 @@ All fields are populated from Twitter apart from "LinkToTweet" which is deduced.
 * FavoriteCount
 * Retweeted
 * RetweetCount
-* LinkToTweet"
+* LinkToTweet
 
 ## Building
 
